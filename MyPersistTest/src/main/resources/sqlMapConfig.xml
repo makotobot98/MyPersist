@@ -1,0 +1,9 @@
+<configuration>
+    <!--database config-->
+    <property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+    <property name="jdbcUrl" value="jdbc:mysql:///zdy_mybatis"></property>
+    <property name="user" value="root"></property>
+    <property name="password" value="root"></property>
+    <!--mapper configs-->
+    <mapper resource="userMapper.xml"></mapper>
+</configuration>
