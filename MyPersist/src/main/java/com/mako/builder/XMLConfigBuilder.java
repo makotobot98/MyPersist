@@ -36,15 +36,16 @@ public class XMLConfigBuilder extends BaseBuilder {
      * @param rootElement dom4j's parsed root element of the xml file
      */
     public void parseConfig(Element rootElement) throws PropertyVetoException, DocumentException {
-        dataSourceElements(rootElement.selectSingleNode("dataSource"));
-        mapperElements(rootElement.selectSingleNode("mappers"));
+        dataSourceElement(rootElement.selectSingleNode("dataSource"));
+        mappersElement(rootElement.selectSingleNode("mappers"));
     }
 
     /**
-     * plug data source properties into configuration object
+     * plug data source properties into a datasource and store into configuration object
+     * data source using ComboPooledDataSource
      * @param rootElement dom4j's root element for sql-config.xml
      */
-    public void dataSourceElements(Node rootElement) throws PropertyVetoException {
+    public void dataSourceElement(Node rootElement) throws PropertyVetoException {
         List<Element> propertyList = rootElement.selectNodes("//property");
         Properties properties = new Properties();
         for (Element propertyElement : propertyList) {
@@ -66,7 +67,7 @@ public class XMLConfigBuilder extends BaseBuilder {
      * plug user defined mappers into configuration object
      * @param rootElement dom4j's root element for sql-config.xml
      */
-    public void mapperElements(Node rootElement) throws DocumentException {
+    public void mappersElement(Node rootElement) throws DocumentException {
         List<Element> mapperList = rootElement.selectNodes("//mapper");
         for (Element mapperElement : mapperList) {
             String mapperPath = mapperElement.attributeValue("resource");

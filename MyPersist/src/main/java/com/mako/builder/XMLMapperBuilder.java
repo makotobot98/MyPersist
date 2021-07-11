@@ -20,6 +20,6 @@ public class XMLMapperBuilder extends BaseBuilder {
     }
 
     public void parse() {
-        
+
     }
 }
