@@ -3,6 +3,7 @@ package com.mako.session;
 import com.mako.builder.XMLConfigBuilder;
 import org.dom4j.DocumentException;
 
+import java.beans.PropertyVetoException;
 import java.io.InputStream;
 
 public class SqlSessionFactoryBuilder {
@@ -11,7 +12,7 @@ public class SqlSessionFactoryBuilder {
      * @param is input stream to the sql-config.xml
      * @return returns a sql session factory builder
      */
-    public SqlSessionFactory build(InputStream is) throws DocumentException {
+    public SqlSessionFactory build(InputStream is) throws DocumentException, PropertyVetoException {
         XMLConfigBuilder xmlConfigBuilder = new XMLConfigBuilder(is);
         return build(xmlConfigBuilder.parse());
     }

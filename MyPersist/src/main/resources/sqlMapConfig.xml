@@ -1,0 +1,14 @@
+<configuration>
+
+    <dataSource>
+        <property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+        <property name="jdbcUrl" value="jdbc:mysql:///my_persist"></property>
+        <property name="username" value="root"></property>
+        <property name="password" value="15925117737"></property>
+    </dataSource>
+
+    <mappers>
+        <mapper resource="UserMapper.xml"></mapper>
+    </mappers>
+
+</configuration>
