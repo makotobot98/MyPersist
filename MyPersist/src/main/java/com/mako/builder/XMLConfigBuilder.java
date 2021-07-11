@@ -14,7 +14,7 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Properties;
 
-public class XMLConfigBuilder extends BaseBuilder{
+public class XMLConfigBuilder extends BaseBuilder {
     private Document document;
 
     public XMLConfigBuilder(InputStream is) throws DocumentException {
@@ -26,7 +26,7 @@ public class XMLConfigBuilder extends BaseBuilder{
         this.document = document;
     }
 
-    public Configuration parse() throws PropertyVetoException {
+    public Configuration parse() throws PropertyVetoException, DocumentException {
         parseConfig(this.document.getRootElement());
         return this.configuration;
     }
@@ -35,7 +35,7 @@ public class XMLConfigBuilder extends BaseBuilder{
      * Based on the dom4j's root element of the xml file, parse and store properties into configuration
      * @param rootElement dom4j's parsed root element of the xml file
      */
-    public void parseConfig(Element rootElement) throws PropertyVetoException {
+    public void parseConfig(Element rootElement) throws PropertyVetoException, DocumentException {
         dataSourceElements(rootElement.selectSingleNode("dataSource"));
         mapperElements(rootElement.selectSingleNode("mappers"));
     }
@@ -66,12 +66,13 @@ public class XMLConfigBuilder extends BaseBuilder{
      * plug user defined mappers into configuration object
      * @param rootElement dom4j's root element for sql-config.xml
      */
-    public void mapperElements(Node rootElement) {
+    public void mapperElements(Node rootElement) throws DocumentException {
         List<Element> mapperList = rootElement.selectNodes("//mapper");
         for (Element mapperElement : mapperList) {
             String mapperPath = mapperElement.attributeValue("resource");
             InputStream inputStream = Resources.getResourceAsStream(mapperPath);
-
+            XMLMapperBuilder xmlMapperBuilder = new XMLMapperBuilder(inputStream, configuration);
+            xmlMapperBuilder.parse();
 
         }
     }
