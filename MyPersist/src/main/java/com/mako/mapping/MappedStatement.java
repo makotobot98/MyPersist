@@ -9,6 +9,12 @@ public class MappedStatement {
     private String namespace;
     private String sqlSourceStr;
 
+    /**
+     * TODO:
+     * add Class<?> for result and parameter type
+     * add BoundSql to tokenize sqlSourceStr
+     */
+
     MappedStatement() {
         //disable constructor
     }

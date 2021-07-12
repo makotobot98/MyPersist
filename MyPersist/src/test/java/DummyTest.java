@@ -15,7 +15,7 @@ import java.io.InputStream;
 
 public class DummyTest {
     @Test
-    public void test() throws IOException, PropertyVetoException, DocumentException {
+    public void test() throws IOException, PropertyVetoException, DocumentException, ClassNotFoundException {
         InputStream inputStream = Resources.getResourceAsStream("sqlMapConfig.xml");
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
         SqlSession sqlSession = sqlSessionFactory.openSession();

@@ -6,15 +6,22 @@ import org.dom4j.Element;
 
 public class XMLSqlStatementBuilder extends BaseBuilder {
     public Element element;
+    public String namespace;
 
-    public XMLSqlStatementBuilder(Configuration configuration, Element element) {
+    public XMLSqlStatementBuilder(Configuration configuration, Element element, String namespace) {
         super(configuration);
         this.element = element;
+        this.namespace = namespace;
     }
 
     /**
+     * Example XML element:
+     * <select id="selectOne" resultType="com.mako.pojo.User" parameterType="com.mako.pojo.User">
+     *         select * from user where id = #{id} and username = #{username}
+     * </select>
+     *
      * TODO:
-     * 1. parse sql statement dom4j element:
+     * 1. parse sql statement dom4j element into a MappedStatement Object:
      * - sql command type
      * - namespace
      * - sql statement id
@@ -26,11 +33,23 @@ public class XMLSqlStatementBuilder extends BaseBuilder {
      *
      * 3. store the mapped statement into configuration object
      */
-    public void parseSqlStatementElement() {
+    public void parseSqlStatementElement() throws ClassNotFoundException {
+        String parameterTypeStr = element.attributeValue("parameterType");
+        Class<?> parameterTypeClass = resolveClass(parameterTypeStr);
+        String resultTypeStr = element.attributeValue("resultType");
+        Class<?> resultTypeClass = resolveClass(resultTypeStr);
+
+        String id = element.attributeValue("id");
+        String sqlText = element.getTextTrim();
 
     }
 
     public void addMappedStatement() {
 
+    }
+
+    private Class<?> resolveClass(String classStr) throws ClassNotFoundException {
+        Class<?> aClass = Class.forName(classStr);
+        return aClass;
     }
 }

@@ -12,7 +12,7 @@ public class SqlSessionFactoryBuilder {
      * @param is input stream to the sql-config.xml
      * @return returns a sql session factory builder
      */
-    public SqlSessionFactory build(InputStream is) throws DocumentException, PropertyVetoException {
+    public SqlSessionFactory build(InputStream is) throws DocumentException, PropertyVetoException, ClassNotFoundException {
         XMLConfigBuilder xmlConfigBuilder = new XMLConfigBuilder(is);
         return build(xmlConfigBuilder.parse());
     }

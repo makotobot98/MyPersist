@@ -26,7 +26,7 @@ public class XMLConfigBuilder extends BaseBuilder {
         this.document = document;
     }
 
-    public Configuration parse() throws PropertyVetoException, DocumentException {
+    public Configuration parse() throws PropertyVetoException, DocumentException, ClassNotFoundException {
         parseConfig(this.document.getRootElement());
         return this.configuration;
     }
@@ -35,7 +35,7 @@ public class XMLConfigBuilder extends BaseBuilder {
      * Based on the dom4j's root element of the xml file, parse and store properties into configuration
      * @param rootElement dom4j's parsed root element of the xml file
      */
-    public void parseConfig(Element rootElement) throws PropertyVetoException, DocumentException {
+    public void parseConfig(Element rootElement) throws PropertyVetoException, DocumentException, ClassNotFoundException {
         dataSourceElement(rootElement.selectSingleNode("dataSource"));
         mappersElement(rootElement.selectSingleNode("mappers"));
     }
@@ -67,7 +67,7 @@ public class XMLConfigBuilder extends BaseBuilder {
      * plug user defined mappers into configuration object
      * @param rootElement dom4j's root element for sql-config.xml
      */
-    public void mappersElement(Node rootElement) throws DocumentException {
+    public void mappersElement(Node rootElement) throws DocumentException, ClassNotFoundException {
         List<Element> mapperList = rootElement.selectNodes("//mapper");
         for (Element mapperElement : mapperList) {
             String mapperPath = mapperElement.attributeValue("resource");

@@ -11,14 +11,21 @@ import java.util.List;
 
 public class XMLMapperBuilder extends BaseBuilder {
     private Document document;
+    private String namespace;
 
     public XMLMapperBuilder(InputStream inputStream, Configuration configuration) throws DocumentException {
         this(new SAXReader().read(inputStream), configuration);
     }
 
     public XMLMapperBuilder(Document document, Configuration configuration) {
+        this(document, configuration, document.getRootElement().attributeValue("namespace"));
+    }
+
+
+    public XMLMapperBuilder(Document document, Configuration configuration, String namespace) {
         super(configuration);
         this.document = document;
+        this.namespace = namespace;
     }
 
     /**
@@ -32,7 +39,7 @@ public class XMLMapperBuilder extends BaseBuilder {
      * wrap and store the parsed result into MappedStatement, and store each MappedStatement
      * into a Map<StatementId, MappedStatement>, `StatementId` should be unique = sql namespace + sql id
      */
-    public void parse() {
+    public void parse() throws ClassNotFoundException {
         buildSqlStatements(this.document.selectNodes("select|insert|update|delete"));
     }
 
@@ -41,10 +48,10 @@ public class XMLMapperBuilder extends BaseBuilder {
      * 2. add parsed statement onto the 'MappedStatements<String, MappedStatement>' in configuration object
      * @param list a list of sql statement dom4j element
      */
-    public void buildSqlStatements(List<Element> list) {
+    public void buildSqlStatements(List<Element> list) throws ClassNotFoundException {
         for (Element statementElement : list) {
             XMLSqlStatementBuilder sqlStatementParser = new XMLSqlStatementBuilder(this.configuration,
-                    statementElement);
+                    statementElement, this.namespace);
             sqlStatementParser.parseSqlStatementElement();
         }
     }
