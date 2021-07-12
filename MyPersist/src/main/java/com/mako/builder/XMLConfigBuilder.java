@@ -11,6 +11,7 @@ import org.dom4j.io.SAXReader;
 
 import java.beans.PropertyVetoException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 
@@ -69,6 +70,7 @@ public class XMLConfigBuilder extends BaseBuilder {
      */
     public void mappersElement(Node rootElement) throws DocumentException, ClassNotFoundException {
         List<Element> mapperList = rootElement.selectNodes("//mapper");
+        this.configuration.setMappedStatements(new HashMap<>());
         for (Element mapperElement : mapperList) {
             String mapperPath = mapperElement.attributeValue("resource");
             InputStream inputStream = Resources.getResourceAsStream(mapperPath);
