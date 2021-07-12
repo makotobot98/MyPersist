@@ -72,7 +72,7 @@ public class XMLConfigBuilder extends BaseBuilder {
         for (Element mapperElement : mapperList) {
             String mapperPath = mapperElement.attributeValue("resource");
             InputStream inputStream = Resources.getResourceAsStream(mapperPath);
-            XMLMapperBuilder xmlMapperBuilder = new XMLMapperBuilder(inputStream, configuration);
+            XMLMapperBuilder xmlMapperBuilder = new XMLMapperBuilder(inputStream, this.configuration);
             xmlMapperBuilder.parse();
 
         }

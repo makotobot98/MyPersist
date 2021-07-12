@@ -2,6 +2,8 @@
 //import org.apache.ibatis.session.SqlSessionFactory;
 //import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import com.mako.io.Resources;
+import com.mako.session.DefaultSqlSession;
+import com.mako.session.SqlSession;
 import com.mako.session.SqlSessionFactory;
 import com.mako.session.SqlSessionFactoryBuilder;
 import org.dom4j.DocumentException;
@@ -16,6 +18,6 @@ public class DummyTest {
     public void test() throws IOException, PropertyVetoException, DocumentException {
         InputStream inputStream = Resources.getResourceAsStream("sqlMapConfig.xml");
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-
+        SqlSession sqlSession = sqlSessionFactory.openSession();
     }
 }

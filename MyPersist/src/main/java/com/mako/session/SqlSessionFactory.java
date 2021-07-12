@@ -1,7 +1,5 @@
 package com.mako.session;
 
-public class SqlSessionFactory {
-    public SqlSession openSession() {
-        return null;
-    }
+public interface SqlSessionFactory {
+    public SqlSession openSession();
 }
