@@ -1,8 +1,11 @@
 package com.mako.builder;
 
+import com.mako.mapping.SqlCommandType;
 import com.mako.session.Configuration;
 import org.dom4j.Document;
 import org.dom4j.Element;
+
+import java.util.Locale;
 
 public class XMLSqlStatementBuilder extends BaseBuilder {
     public Element element;
@@ -40,10 +43,14 @@ public class XMLSqlStatementBuilder extends BaseBuilder {
         Class<?> resultTypeClass = resolveClass(resultTypeStr);
 
         String id = element.attributeValue("id");
+        String mappedStatementKey = applyNamespace(id);
         String sqlText = element.getTextTrim();
+        String sqlCommandTypeString = element.getName();
+        SqlCommandType sqlCommandType = SqlCommandType.valueOf(sqlCommandTypeString.toUpperCase(Locale.ENGLISH));
 
+        //TODO: Debug to see if all params are set correctly
         //TODO: add BoundSql that tokenizes sqlText and associate it with parameterMappings
-        
+
     }
 
     public void addMappedStatement() {
@@ -53,5 +60,8 @@ public class XMLSqlStatementBuilder extends BaseBuilder {
     private Class<?> resolveClass(String classStr) throws ClassNotFoundException {
         Class<?> aClass = Class.forName(classStr);
         return aClass;
+    }
+    private String applyNamespace(String s) {
+        return namespace + "." + s;
     }
 }

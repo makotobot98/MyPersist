@@ -1,19 +1,17 @@
 package com.mako.mapping;
 
+//TODO: finish Builder class
 public class MappedStatement {
 
     private String id;
     private String resultTypeStr;
+    private Class<?> resultType;
     private String parameterTypeStr;
+    private Class<?> parameterType;
     private SqlCommandType sqlCommandType;
     private String namespace;
     private String sqlSourceStr;
-
-    /**
-     * TODO:
-     * add Class<?> for result and parameter type
-     * add BoundSql to tokenize sqlSourceStr
-     */
+    private BoundSql boundSql;
 
     MappedStatement() {
         //disable constructor
