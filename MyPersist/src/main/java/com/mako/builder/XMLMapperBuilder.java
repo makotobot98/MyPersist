@@ -11,7 +11,7 @@ import java.util.List;
 
 public class XMLMapperBuilder extends BaseBuilder {
     private Document document;
-    private String namespace;
+    private String namespace; //TODO: add this to BuilderAssistant along with <cache> tags
 
     public XMLMapperBuilder(InputStream inputStream, Configuration configuration) throws DocumentException {
         this(new SAXReader().read(inputStream), configuration);

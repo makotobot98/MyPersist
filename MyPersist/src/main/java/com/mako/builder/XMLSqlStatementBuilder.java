@@ -6,7 +6,7 @@ import org.dom4j.Element;
 
 public class XMLSqlStatementBuilder extends BaseBuilder {
     public Element element;
-    public String namespace;
+    public String namespace; //TODO: add this to BuilderAssistant along with <cache> tags
 
     public XMLSqlStatementBuilder(Configuration configuration, Element element, String namespace) {
         super(configuration);
@@ -42,6 +42,8 @@ public class XMLSqlStatementBuilder extends BaseBuilder {
         String id = element.attributeValue("id");
         String sqlText = element.getTextTrim();
 
+        //TODO: add BoundSql that tokenizes sqlText and associate it with parameterMappings
+        
     }
 
     public void addMappedStatement() {
