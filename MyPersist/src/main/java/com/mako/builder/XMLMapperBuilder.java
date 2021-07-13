@@ -10,7 +10,7 @@ import java.io.InputStream;
 import java.util.List;
 
 public class XMLMapperBuilder extends BaseBuilder {
-    private Document document;
+    private Element rootElement;
     private String namespace; //TODO: add this to BuilderAssistant along with <cache> tags
 
     public XMLMapperBuilder(InputStream inputStream, Configuration configuration) throws DocumentException {
@@ -18,13 +18,16 @@ public class XMLMapperBuilder extends BaseBuilder {
     }
 
     public XMLMapperBuilder(Document document, Configuration configuration) {
-        this(document, configuration, document.getRootElement().attributeValue("namespace"));
+        this(document.getRootElement(), configuration);
     }
 
+    public XMLMapperBuilder(Element rootElement, Configuration configuration) {
+        this(rootElement, configuration, rootElement.attributeValue("namespace"));
+    }
 
-    public XMLMapperBuilder(Document document, Configuration configuration, String namespace) {
+    public XMLMapperBuilder(Element rootElement, Configuration configuration, String namespace) {
         super(configuration);
-        this.document = document;
+        this.rootElement = rootElement;
         this.namespace = namespace;
     }
 
@@ -40,7 +43,6 @@ public class XMLMapperBuilder extends BaseBuilder {
      * into a Map<StatementId, MappedStatement>, `StatementId` should be unique = sql namespace + sql id
      */
     public void parse() throws ClassNotFoundException {
-        Element rootElement = document.getRootElement();
         //parse all select, insert, update, delete xml tags
         buildSqlStatements(rootElement.selectNodes("select|insert|update|delete"));
     }

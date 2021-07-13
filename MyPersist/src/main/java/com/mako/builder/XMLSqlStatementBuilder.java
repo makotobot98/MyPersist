@@ -80,6 +80,9 @@ public class XMLSqlStatementBuilder extends BaseBuilder {
     }
 
     private Class<?> resolveClass(String classStr) throws ClassNotFoundException {
+        if (classStr == null) {
+            return null;
+        }
         Class<?> aClass = Class.forName(classStr);
         return aClass;
     }
@@ -90,7 +93,7 @@ public class XMLSqlStatementBuilder extends BaseBuilder {
 
     private BoundSql buildBoundSql(String sql) { //TODO: apply builder pattern for BoundSql
         ParameterMappingTokenHandler parameterMappingTokenHandler = new ParameterMappingTokenHandler();
-        GenericTokenParser genericTokenParser = new GenericTokenParser("# {", "}", parameterMappingTokenHandler);
+        GenericTokenParser genericTokenParser = new GenericTokenParser("#{", "}", parameterMappingTokenHandler);
         String tokenizedSql = genericTokenParser.parse(sql);
         List<ParameterMapping> parameterMappingList = parameterMappingTokenHandler.getParameterMappings();
         BoundSql boundSql = new BoundSql(tokenizedSql, parameterMappingList);
