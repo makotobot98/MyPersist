@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 
+//TODO: since configuration object is of 1 configuration per sql session, maybe make configuration a singleton
 public class XMLConfigBuilder extends BaseBuilder {
     private Document document;
 
@@ -71,6 +72,7 @@ public class XMLConfigBuilder extends BaseBuilder {
     public void mappersElement(Node rootElement) throws DocumentException, ClassNotFoundException {
         List<Element> mapperList = rootElement.selectNodes("//mapper");
         this.configuration.setMappedStatements(new HashMap<>());
+        //for each <mapper> tag
         for (Element mapperElement : mapperList) {
             String mapperPath = mapperElement.attributeValue("resource");
             InputStream inputStream = Resources.getResourceAsStream(mapperPath);

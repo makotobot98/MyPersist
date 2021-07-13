@@ -40,7 +40,9 @@ public class XMLMapperBuilder extends BaseBuilder {
      * into a Map<StatementId, MappedStatement>, `StatementId` should be unique = sql namespace + sql id
      */
     public void parse() throws ClassNotFoundException {
-        buildSqlStatements(this.document.selectNodes("select|insert|update|delete"));
+        Element rootElement = document.getRootElement();
+        //parse all select, insert, update, delete xml tags
+        buildSqlStatements(rootElement.selectNodes("select|insert|update|delete"));
     }
 
     /**

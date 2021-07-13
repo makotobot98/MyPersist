@@ -9,7 +9,6 @@ import com.mako.mapping.utils.ParameterMappingTokenHandler;
 import com.mako.session.Configuration;
 import org.dom4j.Document;
 import org.dom4j.Element;
-
 import java.util.List;
 import java.util.Locale;
 
@@ -17,6 +16,11 @@ public class XMLSqlStatementBuilder extends BaseBuilder {
     public Element element;
     public String namespace; //TODO: add this to BuilderAssistant along with <cache> tags
 
+    /**
+     * @param configuration sql session configuration object, only 1 configuration per sql session
+     * @param element sql xml tag element, i.e. <select>select * from user</select>
+     * @param namespace name space of the mapper, i.e. user
+     */
     public XMLSqlStatementBuilder(Configuration configuration, Element element, String namespace) {
         super(configuration);
         this.element = element;
@@ -29,7 +33,6 @@ public class XMLSqlStatementBuilder extends BaseBuilder {
      *         select * from user where id = #{id} and username = #{username}
      * </select>
      *
-     * TODO:
      * 1. parse sql statement dom4j element into a MappedStatement Object:
      * - sql command type
      * - namespace
@@ -40,7 +43,7 @@ public class XMLSqlStatementBuilder extends BaseBuilder {
      *
      * 2. tokenize the sql text '#{param}` into '?' tokens, and store the parameter mapping list
      *
-     * 3. store the mapped statement into configuration object
+     * 3. store the mappedStatement into configuration object
      */
     //TODO: Debug to see if all params are set correctly
     public void parseSqlStatementElement() throws ClassNotFoundException {
