@@ -57,6 +57,8 @@ public class XMLSqlStatementBuilder extends BaseBuilder {
         String sqlCommandTypeString = element.getName();
         SqlCommandType sqlCommandType = SqlCommandType.valueOf(sqlCommandTypeString.toUpperCase(Locale.ENGLISH));
         BoundSql boundSql = buildBoundSql(sqlText);
+        boolean isSelect = sqlCommandType.equals(SqlCommandType.SELECT);
+
 
         //build MappedStatement
         MappedStatement mappedStatement = new MappedStatement.Builder()
@@ -69,6 +71,7 @@ public class XMLSqlStatementBuilder extends BaseBuilder {
                 .sqlCommandType(sqlCommandType)
                 .namespace(namespace)
                 .boundSql(boundSql)
+                .isSelect(isSelect)
                 .build();
 
         addMappedStatement(mappedStatementKey, mappedStatement);

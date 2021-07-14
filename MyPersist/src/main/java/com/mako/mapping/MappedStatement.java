@@ -12,6 +12,8 @@ public class MappedStatement {
     private String namespace;
     private String sqlText;
     private BoundSql boundSql;
+    private Boolean isSelect;
+
 
     MappedStatement() {
         //disable constructor
@@ -56,11 +58,16 @@ public class MappedStatement {
             mappedStatement.boundSql = boundSql;
             return this;
         }
+        public Builder isSelect(boolean isSelect) {
+            mappedStatement.isSelect = isSelect;
+            return this;
+        }
         public MappedStatement build() {
             assert mappedStatement.namespace != null;
             assert mappedStatement.id != null;
             assert mappedStatement.sqlCommandType != null;
             assert mappedStatement.sqlText != null;
+            assert mappedStatement.isSelect != null;
             return mappedStatement;
         }
     }
@@ -99,5 +106,9 @@ public class MappedStatement {
 
     public BoundSql getBoundSql() {
         return boundSql;
+    }
+
+    public Boolean getIsSelect() {
+        return isSelect;
     }
 }

@@ -12,4 +12,7 @@
         select * from user where username = #{username}
     </select>
 
+    <insert id="insertOne" parameterType="com.mako.pojo.User">
+        insert into user(id, username) values(#{id}, #{username})
+    </insert>
 </mapper>
