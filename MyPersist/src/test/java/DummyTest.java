@@ -1,6 +1,7 @@
 //import org.apache.ibatis.io.Resources;
 //import org.apache.ibatis.session.SqlSessionFactory;
 //import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import com.mako.dao.UserDao;
 import com.mako.io.Resources;
 import com.mako.pojo.User;
 import com.mako.session.DefaultSqlSession;
@@ -22,6 +23,56 @@ import java.util.List;
 
 public class DummyTest {
     @Test
+    public void testGetMapperFindAllByName() throws PropertyVetoException, DocumentException, ClassNotFoundException {
+        InputStream inputStream = Resources.getResourceAsStream("sqlMapConfig.xml");
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        User user = new User();
+        user.setUsername("eddie");
+        UserDao userDao = sqlSession.getMapper(UserDao.class);
+        List<User> list = userDao.findAllByName(user);
+        System.out.println(list);
+    }
+
+    @Test
+    public void testGetMapperInsertOne() throws PropertyVetoException, DocumentException, ClassNotFoundException {
+        InputStream inputStream = Resources.getResourceAsStream("sqlMapConfig.xml");
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        User user = new User();
+        user.setId(12);
+        user.setUsername("jake");
+        UserDao userDao = sqlSession.getMapper(UserDao.class);
+        int res = userDao.insertOne(user);
+        System.out.println("insert rows affected: " + res);
+    }
+
+    @Test
+    public void testGetMapperDeleteById() throws PropertyVetoException, DocumentException, ClassNotFoundException {
+        InputStream inputStream = Resources.getResourceAsStream("sqlMapConfig.xml");
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        User user = new User();
+        user.setId(12);
+        UserDao userDao = sqlSession.getMapper(UserDao.class);
+        int res = userDao.deleteById(user);
+        System.out.println("delete rows affected: " + res);
+    }
+
+    @Test
+    public void testGetMapperUpdateById() throws PropertyVetoException, DocumentException, ClassNotFoundException {
+        InputStream inputStream = Resources.getResourceAsStream("sqlMapConfig.xml");
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        User user = new User();
+        user.setId(11);
+        user.setUsername("james");
+        UserDao userDao = sqlSession.getMapper(UserDao.class);
+        int res = userDao.updateById(user);
+        System.out.println("update rows affected: " + res);
+    }
+
+    @Test
     public void testSelectList() throws IOException, PropertyVetoException, DocumentException, ClassNotFoundException,
             SQLException, IntrospectionException, NoSuchFieldException, InvocationTargetException, IllegalAccessException, InstantiationException {
         InputStream inputStream = Resources.getResourceAsStream("sqlMapConfig.xml");
@@ -39,9 +90,9 @@ public class DummyTest {
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
         SqlSession sqlSession = sqlSessionFactory.openSession();
         User user = new User();
-        user.setUsername("cain");
-        user.setId(8);
-        int res = sqlSession.update("user.insertOne", user);
+        user.setUsername("peter");
+        user.setId(14);
+        int res = sqlSession.insert("user.insertOne", user);
         System.out.println("records inserted: " + res);
     }
 

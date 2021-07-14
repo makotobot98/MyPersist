@@ -9,6 +9,7 @@
 
     <mappers>
         <mapper resource="UserMapper.xml"></mapper>
+        <mapper resource="UserDaoMapper.xml"></mapper>
     </mappers>
 
 </configuration>

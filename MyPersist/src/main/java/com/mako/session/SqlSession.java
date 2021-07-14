@@ -6,9 +6,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface SqlSession {
-    <T> T selectOne(String statement);
+    <T> T selectOne(String statement) throws SQLException, IntrospectionException, NoSuchFieldException, InvocationTargetException, IllegalAccessException, InstantiationException;
 
-    <T> T selectOne(String statement, Object parameter);
+    <T> T selectOne(String statement, Object parameter) throws SQLException, IntrospectionException, NoSuchFieldException, InvocationTargetException, IllegalAccessException, InstantiationException;
 
     /**
      * Read a list of rows using the sql select statement identified by string 'statement'
@@ -32,4 +32,7 @@ public interface SqlSession {
     int update(String statement, Object parameter) throws SQLException, NoSuchFieldException, IllegalAccessException;
     int insert(String statement, Object parameter) throws SQLException, NoSuchFieldException, IllegalAccessException;
     int delete(String statement, Object parameter) throws SQLException, NoSuchFieldException, IllegalAccessException;
+
+    //DAO Proxy
+    public <T> T getMapper(Class<?> daoClass);
 }
