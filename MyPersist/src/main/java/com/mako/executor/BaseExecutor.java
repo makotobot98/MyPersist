@@ -30,6 +30,14 @@ public class BaseExecutor implements Executor {
         return buildResultsFromResultSet(resultSet, resultType);
     }
 
+    @Override
+    public int update(Configuration configuration, MappedStatement mappedStatement, Object parameter) throws SQLException, NoSuchFieldException, IllegalAccessException {
+        connection = configuration.getDataSource().getConnection();
+        PreparedStatement preparedStatement = buildPreparedStatement(connection, mappedStatement, parameter);
+        int res = preparedStatement.executeUpdate();
+        return res;
+    }
+
     private <E> List<E> buildResultsFromResultSet(ResultSet resultSet, Class<?> resultTypeClass) throws SQLException, IntrospectionException, InstantiationException, IllegalAccessException, InvocationTargetException {
         List<Object> results = new ArrayList<>();
         ResultSetMetaData metaData = resultSet.getMetaData();

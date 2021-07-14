@@ -40,12 +40,14 @@ public class DefaultSqlSession implements SqlSession{
     }
 
     @Override
-    public void update(String statement, Object parameter) {
-
+    public int update(String statement, Object parameter) throws SQLException, NoSuchFieldException,
+            IllegalAccessException {
+        MappedStatement mappedStatement = this.configuration.getMappedStatement(statement);
+        return this.executor.update(this.configuration, mappedStatement, parameter);
     }
 
     @Override
-    public void delete(String statement, Object parameter) {
-
+    public int delete(String statement, Object parameter) {
+        return -1;
     }
 }

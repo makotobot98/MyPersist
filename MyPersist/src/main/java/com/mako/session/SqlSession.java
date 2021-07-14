@@ -29,7 +29,7 @@ public interface SqlSession {
      */
     <E> List<E> selectList(String statement, Object parameter) throws SQLException, IntrospectionException, NoSuchFieldException, InvocationTargetException, IllegalAccessException, InstantiationException;
 
-    void update(String statement, Object parameter);
+    int update(String statement, Object parameter) throws SQLException, NoSuchFieldException, IllegalAccessException;
 
-    void delete(String statement, Object parameter);
+    int delete(String statement, Object parameter);
 }

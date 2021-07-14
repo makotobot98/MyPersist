@@ -22,7 +22,8 @@ import java.util.List;
 
 public class DummyTest {
     @Test
-    public void test() throws IOException, PropertyVetoException, DocumentException, ClassNotFoundException, SQLException, IntrospectionException, NoSuchFieldException, InvocationTargetException, IllegalAccessException, InstantiationException {
+    public void testSelectList() throws IOException, PropertyVetoException, DocumentException, ClassNotFoundException,
+            SQLException, IntrospectionException, NoSuchFieldException, InvocationTargetException, IllegalAccessException, InstantiationException {
         InputStream inputStream = Resources.getResourceAsStream("sqlMapConfig.xml");
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
         SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -30,6 +31,18 @@ public class DummyTest {
         user.setUsername("eddie");
         List<User> ls = sqlSession.selectList("user.selectListByName", user);
         System.out.println(ls);
+    }
+
+    @Test
+    public void testInsertOne() throws PropertyVetoException, DocumentException, ClassNotFoundException, SQLException, NoSuchFieldException, IllegalAccessException {
+        InputStream inputStream = Resources.getResourceAsStream("sqlMapConfig.xml");
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        User user = new User();
+        user.setUsername("cain");
+        user.setId(8);
+        int res = sqlSession.update("user.insertOne", user);
+        System.out.println("records inserted: " + res);
     }
 
     @Test
