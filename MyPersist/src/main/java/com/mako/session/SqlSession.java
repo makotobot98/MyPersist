@@ -30,6 +30,6 @@ public interface SqlSession {
     <E> List<E> selectList(String statement, Object parameter) throws SQLException, IntrospectionException, NoSuchFieldException, InvocationTargetException, IllegalAccessException, InstantiationException;
 
     int update(String statement, Object parameter) throws SQLException, NoSuchFieldException, IllegalAccessException;
-
-    int delete(String statement, Object parameter);
+    int insert(String statement, Object parameter) throws SQLException, NoSuchFieldException, IllegalAccessException;
+    int delete(String statement, Object parameter) throws SQLException, NoSuchFieldException, IllegalAccessException;
 }

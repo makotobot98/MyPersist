@@ -46,6 +46,30 @@ public class DummyTest {
     }
 
     @Test
+    public void testDeleteById() throws SQLException, NoSuchFieldException, IllegalAccessException, PropertyVetoException, DocumentException, ClassNotFoundException {
+        InputStream inputStream = Resources.getResourceAsStream("sqlMapConfig.xml");
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        User user = new User();
+        user.setId(8);
+        int res = sqlSession.delete("user.deleteById", user);
+        System.out.println("records inserted: " + res);
+    }
+
+    @Test
+    public void testUpdateById() throws SQLException, NoSuchFieldException, IllegalAccessException,
+            PropertyVetoException, DocumentException, ClassNotFoundException {
+        InputStream inputStream = Resources.getResourceAsStream("sqlMapConfig.xml");
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        User user = new User();
+        user.setId(7);
+        user.setUsername("cain");
+        int res = sqlSession.update("user.updateById", user);
+        System.out.println("records updated: " + res);
+    }
+
+    @Test
     public void testDBConnection() throws Exception{
         ComboPooledDataSource ds = new ComboPooledDataSource();
         ds.setDriverClass("com.mysql.jdbc.Driver");

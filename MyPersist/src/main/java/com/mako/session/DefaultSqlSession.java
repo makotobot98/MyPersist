@@ -47,7 +47,12 @@ public class DefaultSqlSession implements SqlSession{
     }
 
     @Override
-    public int delete(String statement, Object parameter) {
-        return -1;
+    public int insert(String statement, Object parameter) throws SQLException, NoSuchFieldException, IllegalAccessException {
+        return update(statement, parameter);
+    }
+
+    @Override
+    public int delete(String statement, Object parameter) throws SQLException, NoSuchFieldException, IllegalAccessException {
+        return update(statement, parameter);
     }
 }
