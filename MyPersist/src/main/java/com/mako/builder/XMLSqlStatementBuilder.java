@@ -7,7 +7,6 @@ import com.mako.mapping.utils.GenericTokenParser;
 import com.mako.mapping.utils.ParameterMapping;
 import com.mako.mapping.utils.ParameterMappingTokenHandler;
 import com.mako.session.Configuration;
-import org.dom4j.Document;
 import org.dom4j.Element;
 import java.util.List;
 import java.util.Locale;

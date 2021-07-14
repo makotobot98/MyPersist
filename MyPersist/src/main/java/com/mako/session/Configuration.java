@@ -11,6 +11,10 @@ public class Configuration {
     ComboPooledDataSource dataSource;
     Map<String, MappedStatement> mappedStatements;
 
+    public MappedStatement getMappedStatement(String statementId) {
+        return mappedStatements.get(statementId);
+    }
+
     public Map<String, MappedStatement> getMappedStatements() {
         return mappedStatements;
     }

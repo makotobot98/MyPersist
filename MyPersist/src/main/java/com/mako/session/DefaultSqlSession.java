@@ -1,6 +1,7 @@
 package com.mako.session;
 
 import com.mako.executor.Executor;
+import com.mako.mapping.MappedStatement;
 
 import java.util.List;
 
@@ -23,14 +24,16 @@ public class DefaultSqlSession implements SqlSession{
         return null;
     }
 
+
     @Override
     public <E> List<E> selectList(String statement) {
-        return null;
+        return selectList(statement, null);
     }
 
     @Override
     public <E> List<E> selectList(String statement, Object parameter) {
-        return null;
+        MappedStatement mappedStatement = this.configuration.getMappedStatement(statement);
+        return this.executor.query(this.configuration, mappedStatement, parameter);
     }
 
     @Override

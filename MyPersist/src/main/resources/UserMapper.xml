@@ -1,4 +1,4 @@
-<mapper namespace="'user">
+<mapper namespace="user">
 
     <select id="selectList" resultType="com.mako.pojo.User">
         select * from user

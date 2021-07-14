@@ -2,17 +2,17 @@ package com.mako.mapping.utils;
 
 public class ParameterMapping {
 
-    private String content;
+    private String name;
 
-    public ParameterMapping(String content) {
-        this.content = content;
+    public ParameterMapping(String name) {
+        this.name = name;
     }
 
-    public String getContent() {
-        return content;
+    public String getName() {
+        return name;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setName(String name) {
+        this.name = name;
     }
 }
