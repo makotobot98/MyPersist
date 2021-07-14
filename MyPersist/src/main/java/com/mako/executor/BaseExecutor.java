@@ -22,6 +22,7 @@ public class BaseExecutor implements Executor {
         connection = configuration.getDataSource().getConnection();
         PreparedStatement preparedStatement = buildPreparedStatement(connection, mappedStatement, parameter);
         ResultSet resultSet = preparedStatement.executeQuery();
+        System.out.println(resultSet.getStatement());
         Class<?> resultType = mappedStatement.getResultType();
         if (resultType == null) { // if query is of insert, update, delete
             return null;
@@ -33,19 +34,18 @@ public class BaseExecutor implements Executor {
         List<Object> results = new ArrayList<>();
         ResultSetMetaData metaData = resultSet.getMetaData();
         while (resultSet.next()) {
-            for (int i = 0; i <= metaData.getColumnCount(); i++) {
+            Object resultObject = resultTypeClass.newInstance();
+            for (int i = 1; i <= metaData.getColumnCount(); i++) {
                 String columnName = metaData.getColumnName(i);
                 Object value = resultSet.getObject(columnName);
 
                 //reflect
                 PropertyDescriptor propertyDescriptor = new PropertyDescriptor(columnName, resultTypeClass);
                 Method writeMethod = propertyDescriptor.getWriteMethod();
-                Object resultObject = resultTypeClass.newInstance();
                 writeMethod.invoke(resultObject, value);
-
-                //add to result list
-                results.add(resultObject);
             }
+            //add to result list
+            results.add(resultObject);
         }
         return (List<E>) results;
     }

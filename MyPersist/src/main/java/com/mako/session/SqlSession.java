@@ -1,5 +1,8 @@
 package com.mako.session;
 
+import java.beans.IntrospectionException;
+import java.lang.reflect.InvocationTargetException;
+import java.sql.SQLException;
 import java.util.List;
 
 public interface SqlSession {
@@ -14,7 +17,7 @@ public interface SqlSession {
      * @param <E> the returned list element type
      * @return list of rows of records based on the sql statement
      */
-    <E> List<E> selectList(String statement);
+    <E> List<E> selectList(String statement) throws SQLException, IntrospectionException, NoSuchFieldException, InvocationTargetException, IllegalAccessException, InstantiationException;
 
     /**
      * @param statement a string uniquely identifies a sql select statement, i.e. if namespace = 'user',
@@ -24,7 +27,7 @@ public interface SqlSession {
      * @param <E> the returned list element type
      * @return list of rows of records based on the sql statement
      */
-    <E> List<E> selectList(String statement, Object parameter);
+    <E> List<E> selectList(String statement, Object parameter) throws SQLException, IntrospectionException, NoSuchFieldException, InvocationTargetException, IllegalAccessException, InstantiationException;
 
     void update(String statement, Object parameter);
 

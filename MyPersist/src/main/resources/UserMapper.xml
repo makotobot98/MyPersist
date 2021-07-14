@@ -5,7 +5,11 @@
     </select>
 
     <select id="selectOne" resultType="com.mako.pojo.User" parameterType="com.mako.pojo.User">
-        select * from user where id = #{id} and username = #{username}
+        select * from user where id = #{id}
+    </select>
+
+    <select id="selectListByName" resultType="com.mako.pojo.User" parameterType="com.mako.pojo.User">
+        select * from user where username = #{username}
     </select>
 
 </mapper>

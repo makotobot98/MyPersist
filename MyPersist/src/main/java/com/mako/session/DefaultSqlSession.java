@@ -3,6 +3,9 @@ package com.mako.session;
 import com.mako.executor.Executor;
 import com.mako.mapping.MappedStatement;
 
+import java.beans.IntrospectionException;
+import java.lang.reflect.InvocationTargetException;
+import java.sql.SQLException;
 import java.util.List;
 
 public class DefaultSqlSession implements SqlSession{
@@ -26,12 +29,12 @@ public class DefaultSqlSession implements SqlSession{
 
 
     @Override
-    public <E> List<E> selectList(String statement) {
+    public <E> List<E> selectList(String statement) throws SQLException, IntrospectionException, NoSuchFieldException, InvocationTargetException, IllegalAccessException, InstantiationException {
         return selectList(statement, null);
     }
 
     @Override
-    public <E> List<E> selectList(String statement, Object parameter) {
+    public <E> List<E> selectList(String statement, Object parameter) throws SQLException, IntrospectionException, NoSuchFieldException, InvocationTargetException, IllegalAccessException, InstantiationException {
         MappedStatement mappedStatement = this.configuration.getMappedStatement(statement);
         return this.executor.query(this.configuration, mappedStatement, parameter);
     }
